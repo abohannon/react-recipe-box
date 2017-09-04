@@ -1,0 +1,77 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Raleway', sans-serif;
+}
+
+h5 {
+  font-weight: 600;
+}
+
+hr {
+  width: 60px;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  border-top: 1px solid rgb(143, 143, 143);
+  border-bottom: 1px solid rgb(143, 143, 143);
+}
+
+.cover {
+  position: relative;
+  background-size: cover;
+  height: 300px;
+  min-height: 200px;
+  vertical-align: bottom;
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+.cover::before {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.60) 100%);
+  height: 150px;
+  width: 100%;
+  content: '';
+}
+
+.content {
+  margin-bottom: 40px;
+}
+
+.content-top {
+  text-align: center;
+}
+
+.content-top span::after {
+  content: "▬";
+  color: rgb(80, 80, 80);
+}
+
+.recipe-title {
+  color: white;
+  font-weight: 200;
+}
+
+.recipe-title {
+  bottom: 0;
+  position: absolute;
+}
+
+.recipe-ingredients li::before {
+  content: "●";
+  color: #2AA69A;
+  padding-right: 15px;
+}
+
+.modal {
+  max-height: 100% !important;
+}
+
+.close-icon {
+  float: right;
+  cursor: pointer;
+}
