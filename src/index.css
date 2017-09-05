@@ -71,7 +71,7 @@ hr {
   max-height: 100% !important;
 }
 
-.close-icon {
-  float: right;
+.icon {
+  margin-left: 96%;
   cursor: pointer;
 }

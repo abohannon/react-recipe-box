@@ -25,7 +25,7 @@ class App extends React.Component {
       }
     }
 
-    this.addRecipe = this.addRecipe.bind(this)
+    this.addRecipe = this.addRecipe.bind(this);
 
   }
 
@@ -34,10 +34,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const newState = [...this.state.allRecipes]
-    console.log("Before:", newState[1])
-    newState[1].title = "W00t"
-    console.log("After:", newState[1])
+    console.log('Component has mounted.')
+    localStorage.setItem('state', JSON.stringify(this.state.allRecipes));
+
+    $(document).ready(() => {
+      $('.modal').modal()
+    })
+
   }
 
   addRecipe = (newRecipe) => {
@@ -78,47 +81,45 @@ const RecipeDisplay = (props) => {
       </div>
       <div className="collapsible-body">
         <div className="content">
+          
+          <i className="material-icons icon modal-trigger" href="#modal" onClick={()=> console.log('edit recipe')}>create</i>
           <div className="content-top">
             <h5>Directions</h5>
-            <hr/>
+              <hr/>
+            </div>
+            <p>{item.directions}</p>
+            </div>
+            <div className="content">
+              <div className="content-top">
+                <h5>Ingredients</h5>
+                <hr/>
+              </div>
+              <ul className="recipe-ingredients">
+                <li>{item.ingredients}</li>
+                {/* TODO: Create <li> out of comma separated list */}
+              </ul>
+            </div>
           </div>
-          <p>{item.directions}</p>
-        </div>
-        <div className="content">
-          <div className="content-top">
-            <h5>Ingredients</h5>
-            <hr/>
-          </div>
-          <ul className="recipe-ingredients">
-            <li>{item.ingredients}</li>
-            {/* TODO: Create <li> out of comma separated list */}
-          </ul>
-        </div>
-      </div>
-    </li>
-  )))
+        </li>
+        )))
 
-  return (
-    <ul className="collapsible" data-collapsible="expandable">
-      {recipeItem}
-    </ul>
-  )
-}
+        return (
+        <ul className="collapsible" data-collapsible="expandable">
+          {recipeItem}
+        </ul>
+        )
+        }
 
-const RecipeModal = (props) => {
-  console.log('RecipeModal', props.recipeList)
+        const RecipeModal = (props) => {
+          console.log('RecipeModal', props.recipeList)
 
-  $(document).ready(() => {
-    $('.modal').modal()
-  })
-
-  return (
-    <div style={{
-      textAlign: 'center'
-    }}>
-      <a className="waves-effect waves-light btn modal-trigger" href="#modal">
+          return (
+            <div style={{
+              textAlign: 'center'
+            }}>
+              <a className="waves-effect waves-light btn modal-trigger" href="#modal">
         <i className="material-icons right">add</i>Add Recipe</a>
-      <RecipeModalInput recipeList={props.recipeList} addRecipe={props.addRecipe} hello={props.hello}/>
+      <RecipeModalInput recipeList={props.recipeList} addRecipe={props.addRecipe} />
     </div>
   )
 }
@@ -146,7 +147,7 @@ class RecipeModalInput extends React.Component {
     return (
       <div id="modal" className="modal bottom-sheet">
         <div className="modal-content">
-          <i className="material-icons close-icon" onClick={this.closeModal}>close</i>
+          <i className="material-icons icon" onClick={this.closeModal}>close</i>
           <h4>Add Recipe</h4>
           <div className="row">
             <form className="col s12">
