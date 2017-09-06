@@ -20,27 +20,26 @@ class App extends React.Component {
         ]
       }
     } else {
-this.state = {
-  allRecipes: JSON.parse(localStorage.getItem('state'))
-}
-}
+      this.state = {
+        allRecipes: JSON.parse(localStorage.getItem('state'))
+      }
+    }
 
     this.addRecipe = this.addRecipe.bind(this);
-
+    this.editRecipe = this.editRecipe.bind(this);
   }
 
   componentWillMount() {
     console.log('Component is mounting...')
+
   }
 
   componentDidMount() {
     console.log('Component has mounted.')
     localStorage.setItem('state', JSON.stringify(this.state.allRecipes));
-
     $(document).ready(() => {
       $('.modal').modal()
     })
-
   }
 
   addRecipe = (newRecipe) => {
@@ -54,6 +53,10 @@ this.state = {
     console.log(this.state.allRecipes)
   }
 
+  editRecipe = (i) => {
+    console.log(this.state.allRecipes[i]);
+  }
+
   // TODO: Create a set state method to handle everything?
 
   render() {
@@ -64,7 +67,7 @@ this.state = {
         marginTop: '3vh'
       }}>
         <RecipeModal recipeList={this.state.allRecipes} addRecipe={this.addRecipe}/>
-        <RecipeDisplay recipeList={this.state.allRecipes}/>
+        <RecipeDisplay recipeList={this.state.allRecipes} editRecipe={this.editRecipe}/>
       </div>
     )
   }
@@ -72,54 +75,61 @@ this.state = {
 
 const RecipeDisplay = (props) => {
   console.log('props', props)
+
   const recipeItem = props.recipeList.map((item, i) => {
     return (
-    <li key={item.title}>
-      <div style={{
-        backgroundImage: `url(${item.imageUrl})`
-      }} className="collapsible-header cover">
-        <h4 className="recipe-title">{item.title}</h4>
-      </div>
-      <div className="collapsible-body">
-        <div className="content">
-          <i className="material-icons icon modal-trigger" href="#modal" onClick={()=> console.log(i)}>create</i>
-          <div className="content-top">
-            <h5>Directions</h5>
-            <hr/>
-          </div>
+      <li key={item.title}>
+        <div style={{
+          backgroundImage: `url(${item.imageUrl})`
+        }} className="collapsible-header cover">
+          <h4 className="recipe-title">{item.title}</h4>
+        </div>
+        <div className="collapsible-body">
+          <div className="content">
+            <i className="material-icons icon modal-trigger" href="#modal" onClick={handleClick(i)}>create</i>
+            <div className="content-top">
+              <h5>Directions</h5>
+              <hr/>
+            </div>
             <p>{item.directions}</p>
-            </div>
-            <div className="content">
-              <div className="content-top">
-                <h5>Ingredients</h5>
-                <hr/>
-              </div>
-              <ul className="recipe-ingredients">
-                <li>{item.ingredients}</li>
-                {/* TODO: Create <li> out of comma separated list */}
-              </ul>
-            </div>
           </div>
-        </li>
-      )})
+          <div className="content">
+            <div className="content-top">
+              <h5>Ingredients</h5>
+              <hr/>
+            </div>
+            <ul className="recipe-ingredients">
+              <li>{item.ingredients}</li>
+              {/* TODO: Create <li> out of comma separated list */}
+            </ul>
+          </div>
+        </div>
+      </li>
+    )
+  })
 
-        return (
-        <ul className="collapsible" data-collapsible="expandable">
-          {recipeItem}
-        </ul>
-        )
-        }
+  return (
+    <ul className="collapsible" data-collapsible="expandable">
+      {recipeItem}
+    </ul>
+  )
 
-        const RecipeModal = (props) => {
-          console.log('RecipeModal', props.recipeList)
+  handleClick = (index) => {
+    props.editModal(index)
+  }
 
-          return (
-            <div style={{
-              textAlign: 'center'
-            }}>
-              <a className="waves-effect waves-light btn modal-trigger" href="#modal">
+}
+
+const RecipeModal = (props) => {
+  console.log('RecipeModal', props.recipeList)
+
+  return (
+    <div style={{
+      textAlign: 'center'
+    }}>
+      <a className="waves-effect waves-light btn modal-trigger" href="#modal">
         <i className="material-icons right">add</i>Add Recipe</a>
-      <RecipeModalInput recipeList={props.recipeList} addRecipe={props.addRecipe} />
+      <RecipeModalInput recipeList={props.recipeList} addRecipe={props.addRecipe}/>
     </div>
   )
 }
@@ -177,9 +187,7 @@ class RecipeModalInput extends React.Component {
           </div>
         </div>
         <div className="modal-footer">
-          <a href="#!"
-            className="modal-action modal-close waves-effect waves-green btn-flat"
-            onClick={this.handleSubmit}>Save Recipe</a>
+          <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Save Recipe</a>
         </div>
       </div>
 
@@ -201,7 +209,7 @@ class RecipeModalInput extends React.Component {
       ...this.state
     }
     this.props.addRecipe(newRecipe)
-    // console.log("new addition!", this.props.recipeList);
+    this.setState({title: '', imageUrl: '', directions: '', ingredients: ''})
   }
 }
 
