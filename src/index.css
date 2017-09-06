@@ -17,6 +17,7 @@ hr {
 }
 
 .cover {
+  background-position: center;
   position: relative;
   background-size: cover;
   height: 300px;

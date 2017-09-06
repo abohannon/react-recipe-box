@@ -15,7 +15,7 @@ class App extends React.Component {
             title: 'Chicken Tortilla Soup',
             imageUrl: 'http://farm3.static.flickr.com/2218/4287485981_f0423b9814_z.jpg',
             directions: 'In a large saucepan heat the vegetable oil. Add the onions and cook for 2 minutes. Once the onions have softened add the garlic and jalepenos and cook for another minute. Pour the chicken broth, tomatoes and beans into the pot and bring to a boil. Once at a boil lower heat to simmer and add your chicken breasts. Cook the chicken for 20 to 25 minutes. Once chicken is cooked remove from pot. When cool enough to handle shred it and set it aside. Add lime juice and fresh cilantro to the pot. In a serving bowl add a mound of shredded chicken. Ladle soup over chicken and top with a lime wedge, grilled tortilla strips, avocado slices and cheese.',
-            ingredients: '2 tablespoons vegetable oil, 1 small onion, diced, 2 tablespoons minced garlic, 2 jalapenos, finely diced, 6 cups low-sodium chicken broth, One 14.5-ounce can fire-roasted diced tomatoes, One 14.5-ounce can black beans, rinsed and drained, 3 chicken breasts, boneless and skinless, 2 limes, juiced, plus wedges for garnish, Salt and freshly ground black pepper, 1 cup roughly chopped fresh cilantro leaves, One 8-inch flour tortilla, grilled, cut into thin strips, 1 avocado, pitted, sliced, 1 cup shredded Monterrey cheese'
+            ingredients: '2 tablespoons vegetable oil, 1 small onion diced, 2 tablespoons minced garlic, 2 jalapenos finely diced, 6 cups low-sodium chicken broth, One 14.5-ounce can fire-roasted diced tomatoes, One 14.5-ounce can black beans rinsed and drained, 3 chicken breasts boneless and skinless, 2 limes juiced plus wedges for garnish, Salt and freshly ground black pepper, 1 cup roughly chopped fresh cilantro leaves, One 8-inch flour tortilla grilled and cut into thin strips, 1 avocado pitted and sliced, 1 cup shredded Monterrey cheese'
           }
         ]
       }
@@ -24,14 +24,13 @@ class App extends React.Component {
         allRecipes: JSON.parse(localStorage.getItem('state'))
       }
     }
+    // TODO: redo localStorage and state
 
     this.addRecipe = this.addRecipe.bind(this);
-    this.editRecipe = this.editRecipe.bind(this);
   }
 
   componentWillMount() {
     console.log('Component is mounting...')
-
   }
 
   componentDidMount() {
@@ -53,11 +52,10 @@ class App extends React.Component {
     console.log(this.state.allRecipes)
   }
 
-  editRecipe = (i) => {
-    console.log(this.state.allRecipes[i]);
-  }
-
-  // TODO: Create a set state method to handle everything?
+  // TODO: Need to work on this...
+  // editRecipe = (index) => {
+  //   console.log(this.state.allRecipes[index]);
+  // }
 
   render() {
     return (
@@ -67,7 +65,7 @@ class App extends React.Component {
         marginTop: '3vh'
       }}>
         <RecipeModal recipeList={this.state.allRecipes} addRecipe={this.addRecipe}/>
-        <RecipeDisplay recipeList={this.state.allRecipes} editRecipe={this.editRecipe}/>
+        <RecipeDisplay recipeList={this.state.allRecipes} />
       </div>
     )
   }
@@ -77,16 +75,22 @@ const RecipeDisplay = (props) => {
   console.log('props', props)
 
   const recipeItem = props.recipeList.map((item, i) => {
+    const recipeIngredients = item.ingredients.split(',');
+    const listIngredients = recipeIngredients.map((item, i) => {
+      return (
+        <li key={i}>{item}</li>
+      )
+    });
     return (
-      <li key={item.title}>
-        <div style={{
-          backgroundImage: `url(${item.imageUrl})`
-        }} className="collapsible-header cover">
+      <li key={i}>
+        <div
+          style={{backgroundImage: `url(${item.imageUrl})`}}
+        className="collapsible-header cover">
           <h4 className="recipe-title">{item.title}</h4>
         </div>
         <div className="collapsible-body">
           <div className="content">
-            <i className="material-icons icon modal-trigger" href="#modal" onClick={handleClick(i)}>create</i>
+            <i className="material-icons icon modal-trigger" href="#modal" onClick={() => console.log(i)}>create</i>
             <div className="content-top">
               <h5>Directions</h5>
               <hr/>
@@ -99,8 +103,7 @@ const RecipeDisplay = (props) => {
               <hr/>
             </div>
             <ul className="recipe-ingredients">
-              <li>{item.ingredients}</li>
-              {/* TODO: Create <li> out of comma separated list */}
+              {listIngredients}
             </ul>
           </div>
         </div>
@@ -114,10 +117,6 @@ const RecipeDisplay = (props) => {
     </ul>
   )
 
-  handleClick = (index) => {
-    props.editModal(index)
-  }
-
 }
 
 const RecipeModal = (props) => {
@@ -127,7 +126,7 @@ const RecipeModal = (props) => {
     <div style={{
       textAlign: 'center'
     }}>
-      <a className="waves-effect waves-light btn modal-trigger" href="#modal">
+      <a className="waves-effect waves-light btn modal-trigger" href="#modal" style={{margin: "20px"}}>
         <i className="material-icons right">add</i>Add Recipe</a>
       <RecipeModalInput recipeList={props.recipeList} addRecipe={props.addRecipe}/>
     </div>
@@ -205,12 +204,14 @@ class RecipeModalInput extends React.Component {
   }
 
   handleSubmit() {
+    if (this.state.title.length !== 0){
     const newRecipe = {
       ...this.state
     }
     this.props.addRecipe(newRecipe)
     this.setState({title: '', imageUrl: '', directions: '', ingredients: ''})
   }
+}
 }
 
 ReactDOM.render(
