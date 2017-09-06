@@ -20,10 +20,10 @@ class App extends React.Component {
         ]
       }
     } else {
-      this.state = {
-        allRecipes: JSON.parse(localStorage.getItem('state'))
-      }
-    }
+this.state = {
+  allRecipes: JSON.parse(localStorage.getItem('state'))
+}
+}
 
     this.addRecipe = this.addRecipe.bind(this);
 
@@ -72,7 +72,8 @@ class App extends React.Component {
 
 const RecipeDisplay = (props) => {
   console.log('props', props)
-  const recipeItem = props.recipeList.map((item => (
+  const recipeItem = props.recipeList.map((item, i) => {
+    return (
     <li key={item.title}>
       <div style={{
         backgroundImage: `url(${item.imageUrl})`
@@ -81,12 +82,11 @@ const RecipeDisplay = (props) => {
       </div>
       <div className="collapsible-body">
         <div className="content">
-          
-          <i className="material-icons icon modal-trigger" href="#modal" onClick={()=> console.log('edit recipe')}>create</i>
+          <i className="material-icons icon modal-trigger" href="#modal" onClick={()=> console.log(i)}>create</i>
           <div className="content-top">
             <h5>Directions</h5>
-              <hr/>
-            </div>
+            <hr/>
+          </div>
             <p>{item.directions}</p>
             </div>
             <div className="content">
@@ -101,7 +101,7 @@ const RecipeDisplay = (props) => {
             </div>
           </div>
         </li>
-        )))
+      )})
 
         return (
         <ul className="collapsible" data-collapsible="expandable">
@@ -150,7 +150,7 @@ class RecipeModalInput extends React.Component {
           <i className="material-icons icon" onClick={this.closeModal}>close</i>
           <h4>Add Recipe</h4>
           <div className="row">
-            <form className="col s12">
+            <form id="recipe-form" className="col s12">
               <div className="row">
                 <div className="input-field col s12">
                   <input name="title" type="text" value={this.state.title} onChange={this.handleChange}/>
@@ -177,7 +177,9 @@ class RecipeModalInput extends React.Component {
           </div>
         </div>
         <div className="modal-footer">
-          <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Save Recipe</a>
+          <a href="#!"
+            className="modal-action modal-close waves-effect waves-green btn-flat"
+            onClick={this.handleSubmit}>Save Recipe</a>
         </div>
       </div>
 
