@@ -56,6 +56,9 @@ class RecipeModalInput extends React.Component {
                 <div className="input-field col s12">
                   <input name="imageUrl" type="text" value={this.state.imageUrl} onChange={this.handleChange} />
                   <label htmlFor="recipe-image">Image URL</label>
+                  <p style={{ textAlign: 'right' }}>Don&apos;t have one? Go
+                    <a href="http://www.freefoodphotos.com/imagelibrary/" target="_blank" rel="noopener noreferrer"> here </a>
+                  for high quality food photos.</p>
                 </div>
 
                 <div className="input-field col s12">
@@ -84,6 +87,5 @@ class RecipeModalInput extends React.Component {
 RecipeModalInput.propTypes = {
   addRecipe: PropTypes.func.isRequired,
 };
-
 
 export default RecipeModalInput;
