@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import registerServiceWorker from './registerServiceWorker'
 
+import RecipeDisplay from './components/recipe_display'
+import RecipeModal from './components/recipe_modal'
+
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -71,148 +75,98 @@ class App extends React.Component {
   }
 }
 
-const RecipeDisplay = (props) => {
-  console.log('props', props)
+// const RecipeModal = (props) => {
+//   console.log('RecipeModal', props.recipeList)
+//
+//   return (
+//     <div style={{
+//       textAlign: 'center'
+//     }}>
+//       <a className="waves-effect waves-light btn modal-trigger" href="#modal" style={{margin: "20px"}}>
+//         <i className="material-icons right">add</i>Add Recipe</a>
+//       <RecipeModalInput recipeList={props.recipeList} addRecipe={props.addRecipe}/>
+//     </div>
+//   )
+// }
 
-  const recipeItem = props.recipeList.map((item, i) => {
-    const recipeIngredients = item.ingredients.split(',');
-    const listIngredients = recipeIngredients.map((item, i) => {
-      return (
-        <li key={i}>{item}</li>
-      )
-    });
-    return (
-      <li key={i}>
-        <div
-          style={{backgroundImage: `url(${item.imageUrl})`}}
-        className="collapsible-header cover">
-          <h4 className="recipe-title">{item.title}</h4>
-        </div>
-        <div className="collapsible-body">
-          <div className="content">
-            <i className="material-icons icon modal-trigger" href="#modal" onClick={() => console.log(i)}>create</i>
-            <div className="content-top">
-              <h5>Directions</h5>
-              <hr/>
-            </div>
-            <p>{item.directions}</p>
-          </div>
-          <div className="content">
-            <div className="content-top">
-              <h5>Ingredients</h5>
-              <hr/>
-            </div>
-            <ul className="recipe-ingredients">
-              {listIngredients}
-            </ul>
-          </div>
-        </div>
-      </li>
-    )
-  })
-
-  return (
-    <ul className="collapsible" data-collapsible="expandable">
-      {recipeItem}
-    </ul>
-  )
-
-}
-
-const RecipeModal = (props) => {
-  console.log('RecipeModal', props.recipeList)
-
-  return (
-    <div style={{
-      textAlign: 'center'
-    }}>
-      <a className="waves-effect waves-light btn modal-trigger" href="#modal" style={{margin: "20px"}}>
-        <i className="material-icons right">add</i>Add Recipe</a>
-      <RecipeModalInput recipeList={props.recipeList} addRecipe={props.addRecipe}/>
-    </div>
-  )
-}
-
-class RecipeModalInput extends React.Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      title: '',
-      imageUrl: '',
-      directions: '',
-      ingredients: ''
-    }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  closeModal = () => {
-    $('#modal').modal('close')
-  }
-
-  render() {
-    return (
-      <div id="modal" className="modal bottom-sheet">
-        <div className="modal-content">
-          <i className="material-icons icon" onClick={this.closeModal}>close</i>
-          <h4>Add Recipe</h4>
-          <div className="row">
-            <form id="recipe-form" className="col s12">
-              <div className="row">
-                <div className="input-field col s12">
-                  <input name="title" type="text" value={this.state.title} onChange={this.handleChange}/>
-                  <label htmlFor="title">Recipe Title</label>
-                </div>
-
-                <div className="input-field col s12">
-                  <input name="imageUrl" type="text" value={this.state.imageUrl} onChange={this.handleChange}/>
-                  <label htmlFor="recipe-image">Image URL</label>
-                </div>
-
-                <div className="input-field col s12">
-                  <textarea name="directions" className="materialize-textarea" value={this.state.directions} onChange={this.handleChange}/>
-                  <label htmlFor="textarea1">Directions</label>
-                </div>
-
-                <div className="input-field col s12">
-                  <textarea name="ingredients" className="materialize-textarea" value={this.state.ingredients} onChange={this.handleChange}/>
-                  <label htmlFor="textarea2">Ingredients (comma separated)</label>
-                </div>
-
-              </div>
-            </form>
-          </div>
-        </div>
-        <div className="modal-footer">
-          <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Save Recipe</a>
-        </div>
-      </div>
-
-    )
-  }
-
-  // local methods
-
-  handleChange(event) {
-    const target = event.target
-    const value = target.value
-    const name = target.name
-
-    this.setState({[name]: value})
-  }
-
-  handleSubmit() {
-    if (this.state.title.length !== 0){
-    const newRecipe = {
-      ...this.state
-    }
-    this.props.addRecipe(newRecipe)
-    this.setState({title: '', imageUrl: '', directions: '', ingredients: ''})
-  }
-}
-}
+// class RecipeModalInput extends React.Component {
+//   constructor(props) {
+//     super(props)
+//
+//     this.state = {
+//       title: '',
+//       imageUrl: '',
+//       directions: '',
+//       ingredients: ''
+//     }
+//
+//     this.handleChange = this.handleChange.bind(this)
+//     this.handleSubmit = this.handleSubmit.bind(this)
+//   }
+//
+//   closeModal = () => {
+//     $('#modal').modal('close')
+//   }
+//
+//   render() {
+//     return (
+//       <div id="modal" className="modal bottom-sheet">
+//         <div className="modal-content">
+//           <i className="material-icons icon" onClick={this.closeModal}>close</i>
+//           <h4>Add Recipe</h4>
+//           <div className="row">
+//             <form id="recipe-form" className="col s12">
+//               <div className="row">
+//                 <div className="input-field col s12">
+//                   <input name="title" type="text" value={this.state.title} onChange={this.handleChange}/>
+//                   <label htmlFor="title">Recipe Title</label>
+//                 </div>
+//
+//                 <div className="input-field col s12">
+//                   <input name="imageUrl" type="text" value={this.state.imageUrl} onChange={this.handleChange}/>
+//                   <label htmlFor="recipe-image">Image URL</label>
+//                 </div>
+//
+//                 <div className="input-field col s12">
+//                   <textarea name="directions" className="materialize-textarea" value={this.state.directions} onChange={this.handleChange}/>
+//                   <label htmlFor="textarea1">Directions</label>
+//                 </div>
+//
+//                 <div className="input-field col s12">
+//                   <textarea name="ingredients" className="materialize-textarea" value={this.state.ingredients} onChange={this.handleChange}/>
+//                   <label htmlFor="textarea2">Ingredients (comma separated)</label>
+//                 </div>
+//
+//               </div>
+//             </form>
+//           </div>
+//         </div>
+//         <div className="modal-footer">
+//           <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Save Recipe</a>
+//         </div>
+//       </div>
+//
+//     )
+//   }
+//
+//   handleChange(event) {
+//     const target = event.target
+//     const value = target.value
+//     const name = target.name
+//
+//     this.setState({[name]: value})
+//   }
+//
+//   handleSubmit() {
+//     if (this.state.title.length !== 0){
+//     const newRecipe = {
+//       ...this.state
+//     }
+//     this.props.addRecipe(newRecipe)
+//     this.setState({title: '', imageUrl: '', directions: '', ingredients: ''})
+//   }
+// }
+// }
 
 ReactDOM.render(
   <App/>, document.querySelector('#root'))
