@@ -19,7 +19,7 @@ const RecipeDisplay = (props) => {
         </div>
         <div className="collapsible-body">
           <div className="content">
-            <i className="material-icons icon modal-trigger" role="button" tabIndex="0" href="#modal" onClick={() => console.log(recipeIndex)}>create</i>
+            <i className="material-icons icon modal-trigger" role="button" tabIndex="0" href="#modal" onClick={props.editOn}>create</i>
             <div className="content-top">
               <h5>Directions</h5>
               <hr />
@@ -49,6 +49,7 @@ const RecipeDisplay = (props) => {
 
 RecipeDisplay.propTypes = {
   recipeList: PropTypes.array.isRequired,
+  editOn: PropTypes.func.isRequired,
 };
 
 export default RecipeDisplay;

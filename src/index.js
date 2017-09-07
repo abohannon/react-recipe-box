@@ -20,10 +20,13 @@ class App extends React.Component {
           ingredients: '2 tablespoons vegetable oil, 1 small onion diced, 2 tablespoons minced garlic, 2 jalapenos finely diced, 6 cups low-sodium chicken broth, One 14.5-ounce can fire-roasted diced tomatoes, One 14.5-ounce can black beans rinsed and drained, 3 chicken breasts boneless and skinless, 2 limes juiced plus wedges for garnish, Salt and freshly ground black pepper, 1 cup roughly chopped fresh cilantro leaves, One 8-inch flour tortilla grilled and cut into thin strips, 1 avocado pitted and sliced, 1 cup shredded Monterrey cheese',
         },
       ],
+      editRecipe: false,
     };
     // TODO: redo localStorage and state
 
     this.addRecipe = this.addRecipe.bind(this);
+    this.editOn = this.editOn.bind(this);
+    this.editOff = this.editOff.bind(this);
   }
 
   componentWillMount() {
@@ -50,8 +53,23 @@ class App extends React.Component {
     ];
     const allRecipesLocal = JSON.stringify(allRecipes);
     localStorage.setItem('state', allRecipesLocal);
-    this.setState({ allRecipes });
+    this.setState({
+      allRecipes,
+      editRecipe: false,
+    });
     console.log(this.state.allRecipes);
+  }
+
+  editOn = () => {
+    this.setState({
+      editRecipe: true,
+    });
+  }
+
+  editOff = () => {
+    this.setState({
+      editRecipe: false,
+    });
   }
 
   render() {
@@ -62,8 +80,16 @@ class App extends React.Component {
         marginTop: '3vh',
       }}
       >
-        <AddRecipeButton recipeList={this.state.allRecipes} addRecipe={this.addRecipe} />
-        <RecipeDisplay recipeList={this.state.allRecipes} />
+        <AddRecipeButton
+          recipeList={this.state.allRecipes}
+          addRecipe={this.addRecipe}
+          editRecipe={this.state.editRecipe}
+          editOff={this.editOff}
+        />
+        <RecipeDisplay
+          recipeList={this.state.allRecipes}
+          editOn={this.editOn}
+        />
       </div>
     );
   }

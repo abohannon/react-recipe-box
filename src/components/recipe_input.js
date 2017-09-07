@@ -19,6 +19,7 @@ class RecipeInput extends React.Component {
 
   closeModal = () => {
     $('#modal').modal('close');
+    this.props.editOff();
   }
 
   handleChange(event) {
@@ -44,7 +45,7 @@ class RecipeInput extends React.Component {
       <div id="modal" className="modal bottom-sheet">
         <div className="modal-content">
           <i className="material-icons icon" role="button" tabIndex="0" onClick={this.closeModal}>close</i>
-          <h4>Add Recipe</h4>
+          <h4>{this.props.editRecipe ? 'Edit Recipe' : 'Add Recipe'}</h4>
           <div className="row">
             <form id="recipe-form" className="col s12">
               <div className="row">
@@ -76,7 +77,13 @@ class RecipeInput extends React.Component {
           </div>
         </div>
         <div className="modal-footer">
-          <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Save Recipe</a>
+          {this.props.editRecipe ?
+            <div>
+              <a href="#!" className="modal-action modal-close waves-effect waves-red btn-flat" onClick={this.handleSubmit}>Delete Recipe</a>
+              <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Edit Recipe</a>
+            </div> :
+            <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Save Recipe</a>
+          }
         </div>
       </div>
 
@@ -86,6 +93,8 @@ class RecipeInput extends React.Component {
 
 RecipeInput.propTypes = {
   addRecipe: PropTypes.func.isRequired,
+  editRecipe: PropTypes.bool.isRequired,
+  editOff: PropTypes.func.isRequired,
 };
 
 export default RecipeInput;

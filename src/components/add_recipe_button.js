@@ -11,8 +11,13 @@ const AddRecipeButton = (props) => {
     }}
     >
       <a className="waves-effect waves-light btn modal-trigger" href="#modal" style={{ margin: '20px' }}>
-        <i className="material-icons right">add</i>Add Recipe</a>
-      <RecipeInput recipeList={props.recipeList} addRecipe={props.addRecipe} />
+        <i className="material-icons right" role="button" tabIndex="0">add</i>Add Recipe</a>
+      <RecipeInput
+        recipeList={props.recipeList}
+        addRecipe={props.addRecipe}
+        editRecipe={props.editRecipe}
+        editOff={props.editOff}
+      />
     </div>
   );
 };
@@ -20,6 +25,8 @@ const AddRecipeButton = (props) => {
 AddRecipeButton.propTypes = {
   addRecipe: PropTypes.func.isRequired,
   recipeList: PropTypes.array.isRequired,
+  editRecipe: PropTypes.bool.isRequired,
+  editOff: PropTypes.func.isRequired,
 };
 
 export default AddRecipeButton;
