@@ -5,29 +5,22 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 
 import RecipeDisplay from './components/recipe_display';
-import RecipeModal from './components/recipe_modal';
-
+import AddRecipeButton from './components/add_recipe_button';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    if (!localStorage.state) {
-      this.state = {
-        allRecipes: [
-          {
-            title: 'Chicken Tortilla Soup',
-            imageUrl: 'http://farm3.static.flickr.com/2218/4287485981_f0423b9814_z.jpg',
-            directions: 'In a large saucepan heat the vegetable oil. Add the onions and cook for 2 minutes. Once the onions have softened add the garlic and jalepenos and cook for another minute. Pour the chicken broth, tomatoes and beans into the pot and bring to a boil. Once at a boil lower heat to simmer and add your chicken breasts. Cook the chicken for 20 to 25 minutes. Once chicken is cooked remove from pot. When cool enough to handle shred it and set it aside. Add lime juice and fresh cilantro to the pot. In a serving bowl add a mound of shredded chicken. Ladle soup over chicken and top with a lime wedge, grilled tortilla strips, avocado slices and cheese.',
-            ingredients: '2 tablespoons vegetable oil, 1 small onion diced, 2 tablespoons minced garlic, 2 jalapenos finely diced, 6 cups low-sodium chicken broth, One 14.5-ounce can fire-roasted diced tomatoes, One 14.5-ounce can black beans rinsed and drained, 3 chicken breasts boneless and skinless, 2 limes juiced plus wedges for garnish, Salt and freshly ground black pepper, 1 cup roughly chopped fresh cilantro leaves, One 8-inch flour tortilla grilled and cut into thin strips, 1 avocado pitted and sliced, 1 cup shredded Monterrey cheese',
-          },
-        ],
-      };
-    } else {
-      this.state = {
-        allRecipes: JSON.parse(localStorage.getItem('state')),
-      };
-    }
+    this.state = {
+      allRecipes: [
+        {
+          title: 'Chicken Tortilla Soup',
+          imageUrl: 'http://farm3.static.flickr.com/2218/4287485981_f0423b9814_z.jpg',
+          directions: 'In a large saucepan heat the vegetable oil. Add the onions and cook for 2 minutes. Once the onions have softened add the garlic and jalepenos and cook for another minute. Pour the chicken broth, tomatoes and beans into the pot and bring to a boil. Once at a boil lower heat to simmer and add your chicken breasts. Cook the chicken for 20 to 25 minutes. Once chicken is cooked remove from pot. When cool enough to handle shred it and set it aside. Add lime juice and fresh cilantro to the pot. In a serving bowl add a mound of shredded chicken. Ladle soup over chicken and top with a lime wedge, grilled tortilla strips, avocado slices and cheese.',
+          ingredients: '2 tablespoons vegetable oil, 1 small onion diced, 2 tablespoons minced garlic, 2 jalapenos finely diced, 6 cups low-sodium chicken broth, One 14.5-ounce can fire-roasted diced tomatoes, One 14.5-ounce can black beans rinsed and drained, 3 chicken breasts boneless and skinless, 2 limes juiced plus wedges for garnish, Salt and freshly ground black pepper, 1 cup roughly chopped fresh cilantro leaves, One 8-inch flour tortilla grilled and cut into thin strips, 1 avocado pitted and sliced, 1 cup shredded Monterrey cheese',
+        },
+      ],
+    };
     // TODO: redo localStorage and state
 
     this.addRecipe = this.addRecipe.bind(this);
@@ -35,6 +28,11 @@ class App extends React.Component {
 
   componentWillMount() {
     console.log('Component is mounting...');
+    if (localStorage.state) {
+      this.setState({
+        allRecipes: JSON.parse(localStorage.getItem('state')),
+      });
+    }
   }
 
   componentDidMount() {
@@ -56,11 +54,6 @@ class App extends React.Component {
     console.log(this.state.allRecipes);
   }
 
-  // TODO: Need to work on this...
-  // editRecipe = (index) => {
-  //   console.log(this.state.allRecipes[index]);
-  // }
-
   render() {
     return (
       <div style={{
@@ -69,7 +62,7 @@ class App extends React.Component {
         marginTop: '3vh',
       }}
       >
-        <RecipeModal recipeList={this.state.allRecipes} addRecipe={this.addRecipe} />
+        <AddRecipeButton recipeList={this.state.allRecipes} addRecipe={this.addRecipe} />
         <RecipeDisplay recipeList={this.state.allRecipes} />
       </div>
     );

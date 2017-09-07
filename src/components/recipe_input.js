@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class RecipeModalInput extends React.Component {
+class RecipeInput extends React.Component {
   constructor(props) {
     super(props);
 
@@ -84,8 +84,8 @@ class RecipeModalInput extends React.Component {
   }
 }
 
-RecipeModalInput.propTypes = {
+RecipeInput.propTypes = {
   addRecipe: PropTypes.func.isRequired,
 };
 
-export default RecipeModalInput;
+export default RecipeInput;

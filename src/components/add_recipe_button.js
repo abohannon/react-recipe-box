@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import RecipeModalInput from './recipe_modal_input';
+import RecipeInput from './recipe_input';
 
-const RecipeModal = (props) => {
-  console.log('RecipeModal', props.recipeList);
+const AddRecipeButton = (props) => {
+  console.log('AddRecipeButton', props.recipeList);
 
   return (
     <div style={{
@@ -12,14 +12,14 @@ const RecipeModal = (props) => {
     >
       <a className="waves-effect waves-light btn modal-trigger" href="#modal" style={{ margin: '20px' }}>
         <i className="material-icons right">add</i>Add Recipe</a>
-      <RecipeModalInput recipeList={props.recipeList} addRecipe={props.addRecipe} />
+      <RecipeInput recipeList={props.recipeList} addRecipe={props.addRecipe} />
     </div>
   );
 };
 
-RecipeModal.propTypes = {
+AddRecipeButton.propTypes = {
   addRecipe: PropTypes.func.isRequired,
   recipeList: PropTypes.array.isRequired,
 };
 
-export default RecipeModal;
+export default AddRecipeButton;
