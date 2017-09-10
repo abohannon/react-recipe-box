@@ -21,6 +21,7 @@ class App extends React.Component {
         },
       ],
       editRecipe: false,
+      editTarget: '',
     };
     // TODO: redo localStorage and state
 
@@ -61,10 +62,12 @@ class App extends React.Component {
     console.log(this.state.allRecipes);
   }
 
-  editOn = () => {
+  editOn = (position) => {
     this.setState({
       editRecipe: true,
+      editTarget: position,
     });
+    console.log(this.state.editTarget);
   }
 
   editOff = () => {
@@ -73,9 +76,9 @@ class App extends React.Component {
     });
   }
 
-  deleteRecipe = (position) => {
+  deleteRecipe = () => {
     const updatedRecipes = [...this.state.allRecipes];
-    updatedRecipes.splice(position, 1);
+    updatedRecipes.splice(this.state.editTarget, 1);
     const updatedRecipesLocal = JSON.stringify(updatedRecipes);
     localStorage.setItem('state', updatedRecipesLocal);
     this.setState({

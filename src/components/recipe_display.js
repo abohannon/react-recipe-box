@@ -4,6 +4,10 @@ import PropTypes from 'prop-types';
 const RecipeDisplay = (props) => {
   console.log('props', props);
 
+  const handleEdit = (position) => {
+    props.editOn(position);
+  };
+
   const recipeItem = props.recipeList.map((recipe, recipeIndex) => {
     const recipeIngredients = recipe.ingredients.split(',');
     const listIngredients = recipeIngredients.map((ingredient, ingredientIndex) => (
@@ -19,7 +23,7 @@ const RecipeDisplay = (props) => {
         </div>
         <div className="collapsible-body">
           <div className="content">
-            <i className="material-icons icon modal-trigger" role="button" tabIndex="0" href="#modal" onClick={props.editOn}>create</i>
+            <i className="material-icons icon modal-trigger" role="button" tabIndex="0" href="#modal" onClick={() => handleEdit(recipeIndex)}>create</i>
             <div className="content-top">
               <h5>Directions</h5>
               <hr />
