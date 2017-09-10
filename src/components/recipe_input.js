@@ -15,6 +15,7 @@ class RecipeInput extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   closeModal = () => {
@@ -38,6 +39,10 @@ class RecipeInput extends React.Component {
       this.props.addRecipe(newRecipe);
       this.setState({ title: '', imageUrl: '', directions: '', ingredients: '' });
     }
+  }
+
+  handleDelete() {
+    this.props.deleteRecipe(0);
   }
 
   render() {
@@ -77,10 +82,12 @@ class RecipeInput extends React.Component {
           </div>
         </div>
         <div className="modal-footer">
+          {/* If edit mode is on */}
           {this.props.editRecipe ?
             <div>
-              <a href="#!" className="modal-action modal-close waves-effect waves-red btn-flat" onClick={this.handleSubmit}>Delete Recipe</a>
+              <a href="#!" className="modal-action modal-close waves-effect waves-red btn-flat" onClick={this.handleDelete}>Delete Recipe</a>
               <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Edit Recipe</a>
+              {/* If edit mode is off */}
             </div> :
             <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat" onClick={this.handleSubmit}>Save Recipe</a>
           }
@@ -95,6 +102,7 @@ RecipeInput.propTypes = {
   addRecipe: PropTypes.func.isRequired,
   editRecipe: PropTypes.bool.isRequired,
   editOff: PropTypes.func.isRequired,
+  deleteRecipe: PropTypes.func.isRequired,
 };
 
 export default RecipeInput;

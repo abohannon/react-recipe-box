@@ -17,6 +17,7 @@ const AddRecipeButton = (props) => {
         addRecipe={props.addRecipe}
         editRecipe={props.editRecipe}
         editOff={props.editOff}
+        deleteRecipe={props.deleteRecipe}
       />
     </div>
   );
@@ -27,6 +28,7 @@ AddRecipeButton.propTypes = {
   recipeList: PropTypes.array.isRequired,
   editRecipe: PropTypes.bool.isRequired,
   editOff: PropTypes.func.isRequired,
+  deleteRecipe: PropTypes.func.isRequired,
 };
 
 export default AddRecipeButton;

@@ -27,6 +27,7 @@ class App extends React.Component {
     this.addRecipe = this.addRecipe.bind(this);
     this.editOn = this.editOn.bind(this);
     this.editOff = this.editOff.bind(this);
+    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   componentWillMount() {
@@ -72,6 +73,17 @@ class App extends React.Component {
     });
   }
 
+  deleteRecipe = (position) => {
+    const updatedRecipes = [...this.state.allRecipes];
+    updatedRecipes.splice(position, 1);
+    const updatedRecipesLocal = JSON.stringify(updatedRecipes);
+    localStorage.setItem('state', updatedRecipesLocal);
+    this.setState({
+      allRecipes: updatedRecipes,
+    });
+    this.editOff();
+  }
+
   render() {
     return (
       <div style={{
@@ -85,6 +97,7 @@ class App extends React.Component {
           addRecipe={this.addRecipe}
           editRecipe={this.state.editRecipe}
           editOff={this.editOff}
+          deleteRecipe={this.deleteRecipe}
         />
         <RecipeDisplay
           recipeList={this.state.allRecipes}
