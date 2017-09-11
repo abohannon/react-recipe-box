@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RecipeInput from './recipe_input';
 
 const AddRecipeButton = (props) => {
-  console.log('AddRecipeButton', props.recipeList);
+  console.log('AddRecipeButton props', props.recipeList);
 
   return (
     <div style={{
@@ -18,6 +18,7 @@ const AddRecipeButton = (props) => {
         editRecipe={props.editRecipe}
         editOff={props.editOff}
         deleteRecipe={props.deleteRecipe}
+        editTarget={props.editTarget}
       />
     </div>
   );
@@ -29,6 +30,7 @@ AddRecipeButton.propTypes = {
   editRecipe: PropTypes.bool.isRequired,
   editOff: PropTypes.func.isRequired,
   deleteRecipe: PropTypes.func.isRequired,
+  editTarget: PropTypes.number.isRequired,
 };
 
 export default AddRecipeButton;

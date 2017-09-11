@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const RecipeDisplay = (props) => {
-  console.log('props', props);
+  console.log('RecipeDisplay props', props);
 
   const handleEdit = (position) => {
     props.editOn(position);

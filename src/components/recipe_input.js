@@ -41,8 +41,20 @@ class RecipeInput extends React.Component {
     }
   }
 
+  // populateState() {
+  //   if (this.props.editRecipe) {
+  //     console.log('Heyoo');
+  //     this.setState({
+  //       title: 'test',
+  //       imageUrl: this.props.recipeList[this.props.editTarget].imageUrl,
+  //       directions: this.props.recipeList[this.props.editTarget].directions,
+  //       ingredients: this.props.recipeList[this.props.editTarget].ingredients,
+  //     });
+  //   }
+  // }
+
   handleDelete() {
-    this.props.deleteRecipe(0);
+    this.props.deleteRecipe();
   }
 
   render() {
@@ -51,11 +63,17 @@ class RecipeInput extends React.Component {
         <div className="modal-content">
           <i className="material-icons icon" role="button" tabIndex="0" onClick={this.closeModal}>close</i>
           <h4>{this.props.editRecipe ? 'Edit Recipe' : 'Add Recipe'}</h4>
+          {this.props.editTarget}
           <div className="row">
             <form id="recipe-form" className="col s12">
               <div className="row">
                 <div className="input-field col s12">
-                  <input name="title" type="text" value={this.state.title} onChange={this.handleChange} />
+                  <input
+                    name="title"
+                    type="text"
+                    value={this.state.title}
+                    onChange={this.handleChange}
+                  />
                   <label htmlFor="title">Recipe Title</label>
                 </div>
 
@@ -103,6 +121,8 @@ RecipeInput.propTypes = {
   editRecipe: PropTypes.bool.isRequired,
   editOff: PropTypes.func.isRequired,
   deleteRecipe: PropTypes.func.isRequired,
+  editTarget: PropTypes.number.isRequired,
+  recipeList: PropTypes.array.isRequired,
 };
 
 export default RecipeInput;

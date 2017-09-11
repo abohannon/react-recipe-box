@@ -21,7 +21,7 @@ class App extends React.Component {
         },
       ],
       editRecipe: false,
-      editTarget: '',
+      editTarget: 0,
     };
     // TODO: redo localStorage and state
 
@@ -101,6 +101,7 @@ class App extends React.Component {
           editRecipe={this.state.editRecipe}
           editOff={this.editOff}
           deleteRecipe={this.deleteRecipe}
+          editTarget={this.state.editTarget}
         />
         <RecipeDisplay
           recipeList={this.state.allRecipes}
