@@ -23,12 +23,6 @@ class App extends React.Component {
       editRecipe: false,
       editTarget: 0,
     };
-    // TODO: redo localStorage and state
-
-    this.addRecipe = this.addRecipe.bind(this);
-    this.editOn = this.editOn.bind(this);
-    this.editOff = this.editOff.bind(this);
-    this.deleteRecipe = this.deleteRecipe.bind(this);
   }
 
   componentWillMount() {
@@ -100,6 +94,7 @@ class App extends React.Component {
           addRecipe={this.addRecipe}
           editRecipe={this.state.editRecipe}
           editOff={this.editOff}
+          editOn={this.editOn}
           deleteRecipe={this.deleteRecipe}
           editTarget={this.state.editTarget}
         />

@@ -12,10 +12,19 @@ class RecipeInput extends React.Component {
       directions: '',
       ingredients: '',
     };
+  }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
+  componentWillReceiveProps() {
+    if (!this.props.editRecipe) {
+      this.setState({
+        title: this.props.recipeList[this.props.editTarget].title,
+        imageUrl: this.props.recipeList[this.props.editTarget].imageUrl,
+        directions: this.props.recipeList[this.props.editTarget].directions,
+        ingredients: this.props.recipeList[this.props.editTarget].ingredients,
+      });
+    } else {
+      this.setState({ title: '', imageUrl: '', directions: '', ingredients: '' });
+    }
   }
 
   closeModal = () => {
@@ -23,7 +32,7 @@ class RecipeInput extends React.Component {
     this.props.editOff();
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     const target = event.target;
     const value = target.value;
     const name = target.name;
@@ -31,7 +40,7 @@ class RecipeInput extends React.Component {
     this.setState({ [name]: value });
   }
 
-  handleSubmit() {
+  handleSubmit = () => {
     if (this.state.title.length !== 0) {
       const newRecipe = {
         ...this.state,
@@ -41,19 +50,7 @@ class RecipeInput extends React.Component {
     }
   }
 
-  // populateState() {
-  //   if (this.props.editRecipe) {
-  //     console.log('Heyoo');
-  //     this.setState({
-  //       title: 'test',
-  //       imageUrl: this.props.recipeList[this.props.editTarget].imageUrl,
-  //       directions: this.props.recipeList[this.props.editTarget].directions,
-  //       ingredients: this.props.recipeList[this.props.editTarget].ingredients,
-  //     });
-  //   }
-  // }
-
-  handleDelete() {
+  handleDelete = () => {
     this.props.deleteRecipe();
   }
 

@@ -17,6 +17,7 @@ const AddRecipeButton = (props) => {
         addRecipe={props.addRecipe}
         editRecipe={props.editRecipe}
         editOff={props.editOff}
+        editOn={props.editOn}
         deleteRecipe={props.deleteRecipe}
         editTarget={props.editTarget}
       />
@@ -29,6 +30,7 @@ AddRecipeButton.propTypes = {
   recipeList: PropTypes.array.isRequired,
   editRecipe: PropTypes.bool.isRequired,
   editOff: PropTypes.func.isRequired,
+  editOn: PropTypes.func.isRequired,
   deleteRecipe: PropTypes.func.isRequired,
   editTarget: PropTypes.number.isRequired,
 };
