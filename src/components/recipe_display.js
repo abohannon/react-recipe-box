@@ -6,6 +6,7 @@ const RecipeDisplay = (props) => {
 
   const handleEdit = (position) => {
     props.editOn(position);
+    console.log('recipe position:', position);
   };
 
   const recipeItem = props.recipeList.map((recipe, recipeIndex) => {

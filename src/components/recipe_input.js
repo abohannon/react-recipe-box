@@ -14,13 +14,21 @@ class RecipeInput extends React.Component {
     };
   }
 
-  componentWillReceiveProps() {
-    if (!this.props.editRecipe) {
+  componentWillMount() {
+    console.log('RecipeInput mounting...');
+  }
+
+  componentDidMount() {
+    console.log('RecipeInput has mounted!');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.editRecipe === true) {
       this.setState({
-        title: this.props.recipeList[this.props.editTarget].title,
-        imageUrl: this.props.recipeList[this.props.editTarget].imageUrl,
-        directions: this.props.recipeList[this.props.editTarget].directions,
-        ingredients: this.props.recipeList[this.props.editTarget].ingredients,
+        title: nextProps.recipeList[nextProps.editTarget].title,
+        imageUrl: nextProps.recipeList[nextProps.editTarget].imageUrl,
+        directions: nextProps.recipeList[nextProps.editTarget].directions,
+        ingredients: nextProps.recipeList[nextProps.editTarget].ingredients,
       });
     } else {
       this.setState({ title: '', imageUrl: '', directions: '', ingredients: '' });
