@@ -81,6 +81,10 @@ class App extends React.Component {
     this.editOff();
   }
 
+  updateRecipe = (position) => {
+    console.log('Update Recipe!', position);
+  }
+
   render() {
     return (
       <div style={{
@@ -97,6 +101,7 @@ class App extends React.Component {
           editOn={this.editOn}
           deleteRecipe={this.deleteRecipe}
           editTarget={this.state.editTarget}
+          updateRecipe={this.updateRecipe}
         />
         <RecipeDisplay
           recipeList={this.state.allRecipes}
