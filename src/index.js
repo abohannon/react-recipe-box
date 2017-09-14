@@ -82,7 +82,7 @@ class App extends React.Component {
   }
 
   updateRecipe = (position) => {
-    console.log('Update Recipe!', position);
+    console.log('Update Recipe!!', position);
   }
 
   render() {
