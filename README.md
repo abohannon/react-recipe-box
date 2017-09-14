@@ -23,4 +23,6 @@ in Sibling B? (In this case, it concerned populating my modal input [in Sibling 
 
 Eventually, however, through failure and repitition it started to crystalize. I'm sure I wrote some very verbose code that violates DRY ten time over, but I started to see how I could call functions in the parent component through handlers in the children. And how those could be passed around to wherever I needed them. What was completely foreign to me a week ago seemed like the greatest coding convention I had encountered thus far. Now what I need to improve on is writing more functional code. I tend to write many functions to handle a single thing, and though I've read arguments for doing this, I'd prefer to write functions that are more complex to clean up my code some.
 
-Once I started to understand how props were working in my app
+After getting more comfortable with props, I started running into issues with my state.
+
+...
