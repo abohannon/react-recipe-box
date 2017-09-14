@@ -81,8 +81,20 @@ class App extends React.Component {
     this.editOff();
   }
 
-  updateRecipe = (position) => {
+  updateRecipe = (position, updatedRecipe) => {
     console.log('Update Recipe!!', position);
+    const updatedRecipeList = [...this.state.allRecipes];
+    console.log('new state object:', updatedRecipeList);
+    console.log('passed state from child:', updatedRecipe);
+
+    updatedRecipeList[position].title = updatedRecipe.title;
+    updatedRecipeList[position].imageUrl = updatedRecipe.imageUrl;
+    updatedRecipeList[position].directions = updatedRecipe.directions;
+    updatedRecipeList[position].ingredients = updatedRecipe.ingredients;
+
+    this.setState({
+      allRecipes: updatedRecipeList,
+    });
   }
 
   render() {

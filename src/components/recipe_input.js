@@ -63,7 +63,8 @@ class RecipeInput extends React.Component {
   }
 
   handleUpdate = (position) => {
-    this.props.updateRecipe(position);
+    const updatedRecipe = { ...this.state };
+    this.props.updateRecipe(position, updatedRecipe);
   }
 
   render() {
