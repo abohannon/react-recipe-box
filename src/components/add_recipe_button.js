@@ -10,7 +10,7 @@ const AddRecipeButton = (props) => {
       textAlign: 'center',
     }}
     >
-      <a className="waves-effect waves-light btn modal-trigger" href="#modal" style={{ margin: '20px' }}>
+      <a className="waves-effect waves-light btn modal-trigger" href="#modal" style={{ margin: '20px' }} onClick={() => props.editOff()}>
         <i className="material-icons right" role="button" tabIndex="0">add</i>Add Recipe</a>
       <RecipeInput
         recipeList={props.recipeList}
