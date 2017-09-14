@@ -2,15 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const RecipeDisplay = (props) => {
-  console.log('RecipeDisplay props', props);
-
   const handleEdit = (position) => {
     props.editOn(position);
-    console.log('recipe position:', position);
   };
 
   const recipeItem = props.recipeList.map((recipe, recipeIndex) => {
-    const recipeIngredients = recipe.ingredients.split(',');
+    const recipeIngredients = recipe.ingredients.split(', ');
     const listIngredients = recipeIngredients.map((ingredient, ingredientIndex) => (
       <li key={ingredientIndex}>{ingredient}</li>
     ));

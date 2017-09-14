@@ -26,7 +26,6 @@ class App extends React.Component {
   }
 
   componentWillMount() {
-    console.log('App is mounting...');
     if (localStorage.state) {
       this.setState({
         allRecipes: JSON.parse(localStorage.getItem('state')),
@@ -35,7 +34,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log('App has mounted!');
     localStorage.setItem('state', JSON.stringify(this.state.allRecipes));
     $(document).ready(() => {
       $('.modal').modal();
@@ -53,7 +51,6 @@ class App extends React.Component {
       allRecipes,
       editRecipe: false,
     });
-    console.log(this.state.allRecipes);
   }
 
   editOn = (position) => {
@@ -61,7 +58,6 @@ class App extends React.Component {
       editRecipe: true,
       editTarget: position,
     });
-    console.log('editTarget:', this.state.editTarget);
   }
 
   editOff = () => {
@@ -81,8 +77,17 @@ class App extends React.Component {
     this.editOff();
   }
 
-  updateRecipe = (position) => {
-    console.log('Update Recipe!', position);
+  updateRecipe = (position, updatedRecipe) => {
+    const updatedRecipeList = [...this.state.allRecipes];
+
+    updatedRecipeList[position].title = updatedRecipe.title;
+    updatedRecipeList[position].imageUrl = updatedRecipe.imageUrl;
+    updatedRecipeList[position].directions = updatedRecipe.directions;
+    updatedRecipeList[position].ingredients = updatedRecipe.ingredients;
+
+    this.setState({
+      allRecipes: updatedRecipeList,
+    });
   }
 
   render() {

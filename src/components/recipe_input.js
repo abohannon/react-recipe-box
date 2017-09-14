@@ -14,14 +14,6 @@ class RecipeInput extends React.Component {
     };
   }
 
-  componentWillMount() {
-    console.log('RecipeInput mounting...');
-  }
-
-  componentDidMount() {
-    console.log('RecipeInput has mounted!');
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.editRecipe === true) {
       this.setState({
@@ -63,7 +55,8 @@ class RecipeInput extends React.Component {
   }
 
   handleUpdate = (position) => {
-    this.props.updateRecipe(position);
+    const updatedRecipe = { ...this.state };
+    this.props.updateRecipe(position, updatedRecipe);
   }
 
   render() {
@@ -72,7 +65,6 @@ class RecipeInput extends React.Component {
         <div className="modal-content">
           <i className="material-icons icon" role="button" tabIndex="0" onClick={this.closeModal}>close</i>
           <h4>{this.props.editRecipe ? 'Edit Recipe' : 'Add Recipe'}</h4>
-          {this.props.editTarget}
           <div className="row">
             <form id="recipe-form" className="col s12">
               <div className="row">
@@ -80,6 +72,7 @@ class RecipeInput extends React.Component {
                   <input
                     name="title"
                     type="text"
+                    placeholder="Preferably something tasty."
                     value={this.state.title}
                     onChange={this.handleChange}
                   />
@@ -87,7 +80,13 @@ class RecipeInput extends React.Component {
                 </div>
 
                 <div className="input-field col s12">
-                  <input name="imageUrl" type="text" value={this.state.imageUrl} onChange={this.handleChange} />
+                  <input
+                    name="imageUrl"
+                    type="text"
+                    placeholder="Click the link over there if you need one."
+                    value={this.state.imageUrl}
+                    onChange={this.handleChange}
+                  />
                   <label htmlFor="recipe-image">Image URL</label>
                   <p style={{ textAlign: 'right' }}>Don&apos;t have one? Go
                     <a href="http://www.freefoodphotos.com/imagelibrary/" target="_blank" rel="noopener noreferrer"> here </a>
@@ -95,12 +94,24 @@ class RecipeInput extends React.Component {
                 </div>
 
                 <div className="input-field col s12">
-                  <textarea name="directions" className="materialize-textarea" value={this.state.directions} onChange={this.handleChange} />
+                  <textarea
+                    name="directions"
+                    className="materialize-textarea"
+                    placeholder="Share the love."
+                    value={this.state.directions}
+                    onChange={this.handleChange}
+                  />
                   <label htmlFor="textarea1">Directions</label>
                 </div>
 
                 <div className="input-field col s12">
-                  <textarea name="ingredients" className="materialize-textarea" value={this.state.ingredients} onChange={this.handleChange} />
+                  <textarea
+                    name="ingredients"
+                    className="materialize-textarea"
+                    placeholder="What's needed to make this delicious thing?"
+                    value={this.state.ingredients}
+                    onChange={this.handleChange}
+                  />
                   <label htmlFor="textarea2">Ingredients (comma separated)</label>
                 </div>
 
