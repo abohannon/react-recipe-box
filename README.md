@@ -16,4 +16,4 @@ User Story: All new recipes I add are saved in my browser's local storage. If I 
 
 **Author:** Adam Bohannon
 
-**Made with:** React, Materialize CSS
+**Made with:** React, JSX, Materialize CSS
